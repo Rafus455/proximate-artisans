@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - Ouvrage{% endblock %}
+{% block meta_description %}Connectez-vous à votre compte ou créez un nouveau compte pour accéder aux services d'Ouvrage.{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .login-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .login-form {
+            background-color: white;
+            padding: var(--spacing-3);
+            border-radius: var(--border-radius-2);
+            box-shadow: var(--shadow-2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .login-form h2 {
+            margin-bottom: var(--spacing-2);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-2);
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: var(--spacing-1);
+            border: 1px solid var(--secondary-color);
+            border-radius: var(--border-radius-1);
+        }
+
+        .form-group input[type="checkbox"] {
+            margin-right: 0.5rem;
+        }
+
+        .btn--primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .btn--primary:hover {
+            background-color: var(--success-color);
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="login-card">
+    <a href="{{ path('app_home') }}" class="brand">
+        <svg class="brand__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 24V11L14 4L24 11V24H17V16H11V24H4Z" stroke="#2F4A3D" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        Ouvrage
+    </a>
+
+    <h2>Connexion</h2>
+
+    <form action="#" method="post" class="login-form">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="remember_me"> Se souvenir de moi
+            </label>
+        </div>
+        <button type="submit" class="btn btn--primary">Se connecter</button>
+    </form>
+
+    <p><a href="#">Mot de passe oublié ?</a></p>
+    <p><a href="#">Pas encore de compte ? Créer un compte artisan ou client</a></p>
+</div>
+{% endblock %}
