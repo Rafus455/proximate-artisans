@@ -1,47 +1,75 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Recherche Résultats{% endblock %}
-
-{% block body %}
-    <div class="search-header">
-        <h1>Résultats de la recherche</h1>
-        <p>Vous avez recherché : {{ search_query }}</p>
-    </div>
-
-    <div class="filter-sidebar">
-        <h2>Filtrer</h2>
-        <form>
-            <label for="metier">Métier:</label>
-            <input type="text" id="metier" name="metier"><br><br>
-            
-            <label for="distance">Distance (km):</label>
-            <input type="number" id="distance" name="distance"><br><br>
-            
-            <label for="note_min">Note minimum:</label>
-            <input type="number" id="note_min" name="note_min" min="1" max="5"><br><br>
-        </form>
-    </div>
-
-    <div class="card-grid">
-        {% for artisan in artisans %}
-            <div class="card">
-                <img src="{{ artisan.url_photo_placeholder }}" alt="{{ artisan.nom }}">
-                <h3>{{ artisan.nom }}</h3>
-                <p>Métier : {{ artisan.metier }}</p>
-                <p>Ville : {{ artisan.ville }}</p>
-                <p>Note : {% for i in range(artisan.note|round) %}★{% endfor %}</p>
-                <p>Tarif Indicatif : {{ artisan.tarif_indicatif }} €</p>
-                <a href="{{ path('app_artisan_profile', { 'id': artisan.id }) }}" class="btn">Voir le profil</a>
-            </div>
-        {% endfor %}
-    </div>
-{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="/assets/styles/app.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="search-header">
+            <h1>Résultats de la recherche</h1>
+            <p>Vous avez recherché : {{ search_query|default('') }}</p>
+        </div>
+
+        <div class="results-layout results-layout--with-map">
+            <div class="filter-sidebar">
+                <h2>Filtrer</h2>
+                <form>
+                    <label for="metier">Métier</label>
+                    <input type="text" id="metier" name="metier">
+
+                    <label for="distance">Distance (km)</label>
+                    <input type="number" id="distance" name="distance">
+
+                    <label for="note_min">Note minimum</label>
+                    <input type="number" id="note_min" name="note_min" min="1" max="5">
+                </form>
+            </div>
+
+            <div class="card-grid card-grid--with-map">
+                {% for artisan in artisans %}
+                    <div class="card">
+                        <img src="{{ artisan.url_photo_placeholder }}" alt="{{ artisan.nom }}">
+                        <h3>{{ artisan.nom }}</h3>
+                        <p>Métier : {{ artisan.metier }}</p>
+                        <p>Ville : {{ artisan.ville }}</p>
+                        <p>Note : <span class="stars">{% for i in range(1, artisan.note|round) %}★{% endfor %}</span></p>
+                        <p>Tarif indicatif : {{ artisan.tarif_indicatif }}</p>
+                        <a href="{{ path('app_artisan_profile', { id: artisan.id }) }}" class="btn btn--primary">Voir le profil</a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="map-panel">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const artisans = {{ artisans|json_encode|raw }};
+            const map = L.map('map').setView([47.9029, 1.9093], 11);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap contributors',
+                maxZoom: 18
+            }).addTo(map);
+
+            artisans.forEach(function (artisan) {
+                if (artisan.lat && artisan.lng) {
+                    L.marker([artisan.lat, artisan.lng])
+                        .addTo(map)
+                        .bindPopup('<strong>' + artisan.nom + '</strong><br>' + artisan.metier + ' — ' + artisan.ville);
+                }
+            });
+        });
+    </script>
 {% endblock %}

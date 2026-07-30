@@ -19,36 +19,48 @@ class HomeController extends AbstractController
     {
         $artisans = [
             [
+                'id' => 1,
                 'nom' => 'Martin Dubois',
                 'metier' => 'Jardinier',
                 'ville' => 'Orléans',
                 'note' => 4.5,
                 'tarif_indicatif' => '35€/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
+                'url_photo_placeholder' => 'https://via.placeholder.com/150',
+                'lat' => 47.9029,
+                'lng' => 1.9093
             ],
             [
+                'id'=> 2,
                 'nom' => 'Sophie Lambert',
                 'metier' => 'Plombier',
                 'ville' => 'Fleury-lès-Aubrais',
                 'note' => 4.8,
                 'tarif_indicatif' => '45€/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
+                'url_photo_placeholder' => 'https://via.placeholder.com/150',
+                'lat' => 47.9315,
+                'lng' => 1.9235
             ],
             [
+                'id'=> 3,
                 'nom' => 'Karim Benali',
                 'metier' => 'Électricien',
                 'ville' => 'Olivet',
                 'note' => 4.2,
                 'tarif_indicatif' => '50€/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
+                'url_photo_placeholder' => 'https://via.placeholder.com/150',
+                'lat' => 47.8608,
+                'lng' => 1.9088
             ],
             [
+                'id'=> 4,
                 'nom' => 'Claire Petit',
                 'metier' => 'Peintre',
                 'ville' => 'Saint-Jean-de-Braye',
                 'note' => 4.9,
                 'tarif_indicatif' => '30€/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
+                'url_photo_placeholder' => 'https://via.placeholder.com/150',
+                'lat' => 47.9214,
+                'lng' => 1.9722
             ]
         ];
 
@@ -96,5 +108,11 @@ class HomeController extends AbstractController
         return $this->render('artisan/profile.html.twig', [
             'artisan' => $artisan
         ]);
+    }
+
+    #[Route('/connexion', name: 'app_login')]
+    public function login(): Response
+    {
+        return $this->render('security/login.html.twig');
     }
 }

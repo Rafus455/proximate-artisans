@@ -102,20 +102,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->artisanProfile;
     }
 
-    public function setArtisanProfile(?ArtisanProfile $artisanProfile): self
+     public function setArtisanProfile(?ArtisanProfile $artisanProfile): self
     {
         $this->artisanProfile = $artisanProfile;
 
-        if ($artisanProfile === null) {
-            // unset the owning side of the relation if necessary
-            if ($this->artisanProfile !== null && $this->artisanProfile->getUser() === $this) {
-                $artisanProfile->setUser(null);
-            }
-        } else {
-            // set the owning side of the relation if necessary
-            if ($artisanProfile->getUser() !== $this) {
-                $artisanProfile->setUser($this);
-            }
+        if ($artisanProfile !== null && $artisanProfile->getUser() !== $this) {
+            $artisanProfile->setUser($this);
         }
 
         return $this;

@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ouvrage — Trouvez un artisan près de chez vous{% endblock %}
+
+{% block body %}
+
+<section class="hero">
+    <svg class="hero__blueprint" viewBox="0 0 1160 480" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#BEB39C" stroke-width="1" fill="none">
+            <circle cx="880" cy="240" r="60" stroke-dasharray="3 5"/>
+            <circle cx="880" cy="240" r="130" stroke-dasharray="3 5"/>
+            <circle cx="880" cy="240" r="200" stroke-dasharray="3 5"/>
+        </g>
+        <g fill="#C98A2E">
+            <circle cx="880" cy="240" r="4"/>
+            <circle cx="940" cy="180" r="3.5"/>
+            <circle cx="800" cy="150" r="3.5"/>
+            <circle cx="960" cy="320" r="3.5"/>
+            <circle cx="780" cy="320" r="3.5"/>
+        </g>
+        <g stroke="#D8D0BE" stroke-width="1">
+            <line x1="700" y1="0" x2="700" y2="480"/>
+            <line x1="1000" y1="0" x2="1000" y2="480"/>
+        </g>
+    </svg>
+
+    <div class="container hero__inner">
+        <span class="eyebrow">Menuisiers · Jardiniers · Plombiers · Électriciens</span>
+        <h1>Trouvez l'artisan qu'il vous faut, <em>à deux pas de chez vous.</em></h1>
+        <p>Décrivez votre besoin, comparez des professionnels vérifiés de votre région, et réservez en toute confiance.</p>
+
+        <form class="search-bar" action="{{ path('app_search') }}" method="get">
+            <div class="search-bar__field">
+                <label for="metier">Métier recherché</label>
+                <input type="text" id="metier" name="metier" placeholder="Ex. Menuisier">
+            </div>
+            <div class="search-bar__field">
+                <label for="ville">Ville ou code postal</label>
+                <input type="text" id="ville" name="ville" placeholder="Ex. Fleury-lès-Aubrais">
+            </div>
+            <button type="submit" class="btn btn--primary">Rechercher</button>
+        </form>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section__head">
+            <h2>Les métiers les plus demandés</h2>
+            <p>Chaque artisan référencé est vérifié via son numéro SIRET avant publication.</p>
+        </div>
+
+        <div class="categories">
+            {% for categorie in [
+                { nom: 'Menuiserie', count: '128 artisans' },
+                { nom: 'Jardinage', count: '94 artisans' },
+                { nom: 'Plomberie', count: '76 artisans' },
+                { nom: 'Électricité', count: '61 artisans' },
+                { nom: 'Peinture', count: '52 artisans' },
+                { nom: 'Maçonnerie', count: '40 artisans' }
+            ] %}
+            <a href="#" class="category-card">
+                <svg class="category-card__icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="6" width="28" height="28" rx="4" stroke="currentColor" stroke-width="1.6"/>
+                    <path d="M13 20H27M20 13V27" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+                <div>
+                    <div class="category-card__name">{{ categorie.nom }}</div>
+                    <div class="category-card__count">{{ categorie.count }}</div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section steps" id="comment-ca-marche">
+    <div class="container">
+        <div class="section__head">
+            <h2>Comment ça marche</h2>
+            <p>Trois étapes, du besoin à l'artisan à votre porte.</p>
+        </div>
+
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step__index">01 — Décrire</div>
+                <h3>Décrivez votre besoin</h3>
+                <p>Type de service, localisation, budget indicatif : votre demande est visible par les artisans concernés en quelques minutes.</p>
+            </div>
+            <div class="step">
+                <div class="step__index">02 — Comparer</div>
+                <h3>Comparez les artisans</h3>
+                <p>Avis, tarifs, zone d'intervention : échangez directement avec plusieurs professionnels avant de choisir.</p>
+            </div>
+            <div class="step">
+                <div class="step__index">03 — Réserver</div>
+                <h3>Réservez en confiance</h3>
+                <p>Paiement sécurisé et artisans vérifiés : votre chantier est entre de bonnes mains.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section__head">
+            <h2>Une mise en relation sans mauvaise surprise</h2>
+        </div>
+
+        <div class="trust-badges">
+            <div class="trust-badge"><strong>SIRET vérifié</strong> — chaque entreprise est contrôlée</div>
+            <div class="trust-badge"><strong>Paiement sécurisé</strong> — via Stripe / Mangopay</div>
+            <div class="trust-badge"><strong>Données protégées</strong> — conforme RGPD</div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
