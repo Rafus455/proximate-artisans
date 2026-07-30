@@ -26,6 +26,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $type;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: ArtisanProfile::class, cascade: ['persist', 'remove'])]
+    private $artisanProfile;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +93,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getArtisanProfile(): ?ArtisanProfile
+    {
+        return $this->artisanProfile;
+    }
+
+    public function setArtisanProfile(?ArtisanProfile $artisanProfile): self
+    {
+        $this->artisanProfile = $artisanProfile;
+
+        if ($artisanProfile === null) {
+            // unset the owning side of the relation if necessary
+            if ($this->artisanProfile !== null && $this->artisanProfile->getUser() === $this) {
+                $artisanProfile->setUser(null);
+            }
+        } else {
+            // set the owning side of the relation if necessary
+            if ($artisanProfile->getUser() !== $this) {
+                $artisanProfile->setUser($this);
+            }
+        }
 
         return $this;
     }
