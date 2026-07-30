@@ -18,42 +18,43 @@ class HomeController extends AbstractController
     public function search(): Response
     {
         $artisans = [
-            [
-                'nom' => 'Artisan 1',
-                'metier' => 'Métier 1',
-                'ville' => 'Ville 1',
-                'note' => 4.5,
-                'tarif_indicatif' => '€100/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
-            ],
-            [
-                'nom' => 'Artisan 2',
-                'metier' => 'Métier 2',
-                'ville' => 'Ville 2',
-                'note' => 4.8,
-                'tarif_indicatif' => '€120/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
-            ],
-            [
-                'nom' => 'Artisan 3',
-                'metier' => 'Métier 3',
-                'ville' => 'Ville 3',
-                'note' => 4.2,
-                'tarif_indicatif' => '€90/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
-            ],
-            [
-                'nom' => 'Artisan 4',
-                'metier' => 'Métier 4',
-                'ville' => 'Ville 4',
-                'note' => 4.9,
-                'tarif_indicatif' => '€130/h',
-                'url_photo_placeholder' => 'https://via.placeholder.com/150'
-            ]
-        ];
+    [
+        'nom' => 'Martin Dubois',
+        'metier' => 'Jardinier',
+        'ville' => 'Orléans',
+        'note' => 4.5,
+        'tarif_indicatif' => '35€/h',
+        'url_photo_placeholder' => 'https://via.placeholder.com/150'
+    ],
+    [
+        'nom' => 'Sophie Lambert',
+        'metier' => 'Plombier',
+        'ville' => 'Fleury-lès-Aubrais',
+        'note' => 4.8,
+        'tarif_indicatif' => '45€/h',
+        'url_photo_placeholder' => 'https://via.placeholder.com/150'
+    ],
+    [
+        'nom' => 'Karim Benali',
+        'metier' => 'Électricien',
+        'ville' => 'Olivet',
+        'note' => 4.2,
+        'tarif_indicatif' => '50€/h',
+        'url_photo_placeholder' => 'https://via.placeholder.com/150'
+    ],
+    [
+        'nom' => 'Claire Petit',
+        'metier' => 'Peintre',
+        'ville' => 'Saint-Jean-de-Braye',
+        'note' => 4.9,
+        'tarif_indicatif' => '30€/h',
+        'url_photo_placeholder' => 'https://via.placeholder.com/150'
+    ]
+];
 
         return $this->render('search/results.html.twig', [
-            'artisans' => $artisans
+            'artisans' => $artisans,
+	    'search_query' => 'Jardinier à Orléans'
         ]);
     }
 }
