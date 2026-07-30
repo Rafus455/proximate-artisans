@@ -32,3 +32,59 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.search-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: var(--spacing-3) var(--spacing-2);
+    text-align: center;
+}
+
+.filter-sidebar {
+    width: 25%;
+    background-color: var(--secondary-color);
+    padding: var(--spacing-2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    box-shadow: var(--shadow-1);
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-2);
+    padding: var(--spacing-2);
+}
+
+.card {
+    background-color: white;
+    box-shadow: var(--shadow-1);
+    border-radius: var(--border-radius-2);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.btn {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-2);
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--border-radius-1);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: var(--success-color);
+}
