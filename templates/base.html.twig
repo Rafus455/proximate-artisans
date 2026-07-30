@@ -1,24 +1,54 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Ouvrage — Trouvez un artisan près de chez vous{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Menuisier, jardinier, plombier... trouvez et contactez un artisan vérifié proche de chez vous.{% endblock %}">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    {% endblock %}
+</head>
+<body>
 
-        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphp_hot_reload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<header class="site-header">
+    <div class="container site-header__bar">
+        <a href="{{ path('app_home') }}" class="brand">
+            <svg class="brand__mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 24V11L14 4L24 11V24H17V16H11V24H4Z" stroke="#2F4A3D" stroke-width="2" stroke-linejoin="round"/>
+            </svg>
+            Ouvrage
+        </a>
+
+        <nav class="nav">
+            <a href="#">Trouver un artisan</a>
+            <a href="#comment-ca-marche">Comment ça marche</a>
+            <a href="#">Devenir partenaire</a>
+        </nav>
+
+        <div style="display:flex; gap:10px;">
+            <a href="#" class="btn btn--ghost">Connexion</a>
+            <a href="#" class="btn btn--primary">Publier une demande</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+    <div class="container site-footer__row">
+        <small>© {{ "now"|date("Y") }} Ouvrage — Fleury-lès-Aubrais</small>
+        <nav>
+            <a href="#">Mentions légales</a>
+            <a href="#">Confidentialité (RGPD)</a>
+            <a href="#">Contact</a>
+        </nav>
+    </div>
+</footer>
+
+</body>
 </html>
