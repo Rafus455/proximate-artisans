@@ -24,8 +24,8 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li><a href="#">Accueil</a></li>
-                <li><a href="#">Rechercher un artisan</a></li>
-                <li><a href="#">Devenir artisan</a></li>
+                <li><a href="{{ path('app_search') }}">Rechercher un artisan</a></li>
+                <li><a href="{{ path('app_become_artisan') }}">Devenir artisan</a></li>
                 <li><a href="{{ path('app_login') }}">Connexion</a></li>
             </ul>
         </nav>
@@ -135,6 +135,22 @@ document.querySelector('.hamburger').addEventListener('click', function() {
     }
 }
 </style>
+<script>
+    window.addEventListener('scroll', function () {
+        document.querySelector('.site-header').classList.toggle('is-scrolled', window.scrollY > 8);
+    });
+</script>
 
+<script>
+    document.querySelectorAll('.carousel').forEach(function (carousel) {
+        const track = carousel.querySelector('.carousel__track');
+        const prev = carousel.querySelector('.carousel__arrow--prev');
+        const next = carousel.querySelector('.carousel__arrow--next');
+        const scrollAmount = 340;
+
+        if (prev) prev.addEventListener('click', () => track.scrollBy({ left: -scrollAmount, behavior: 'smooth' }));
+        if (next) next.addEventListener('click', () => track.scrollBy({ left: scrollAmount, behavior: 'smooth' }));
+    });
+</script>
 </body>
 </html>

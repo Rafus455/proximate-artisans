@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title %}Devenir artisan — Ouvrage{% endblock %}
+{% block meta_description %}Rejoignez Ouvrage et développez votre clientèle localement.{% endblock %}
+
+{% block body %}
+<div class="hero" style="padding-block: 56px 40px;">
+    <div class="container hero__inner" style="max-width: 640px;">
+        <span class="eyebrow">Espace professionnel</span>
+        <h1>Développez votre clientèle <em>près de chez vous.</em></h1>
+        <p>Remplissez ce formulaire pour rejoindre Ouvrage. Notre équipe vérifie votre dossier puis vous recontacte sous 48h.</p>
+    </div>
+</div>
+
+<div class="container profile-content" style="max-width: 680px;">
+    {% if success %}
+        <section class="panel">
+            <h2>Demande envoyée !</h2>
+            <p>Merci pour votre candidature. Notre équipe va étudier votre dossier et vous recontacter très prochainement à l'adresse indiquée.</p>
+            <a href="{{ path('app_home') }}" class="btn btn--primary" style="margin-top: 20px;">Retour à l'accueil</a>
+        </section>
+    {% else %}
+        <section class="panel">
+            {% if errors is defined and errors|length > 0 %}
+                <div style="background: var(--ochre-tint); border: 1px solid var(--ochre); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 24px;">
+                    <strong>Merci de corriger :</strong>
+                    <ul style="margin: 8px 0 0; padding-left: 20px;">
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <form action="{{ path('app_become_artisan') }}" method="post" class="contact-form">
+                <label for="company_name">Nom de l'entreprise</label>
+                <input type="text" id="company_name" name="company_name" required>
+
+                <label for="trade">Métier</label>
+                <input type="text" id="trade" name="trade" placeholder="Ex. Jardinier, Plombier..." required>
+
+                <label for="city">Ville</label>
+                <input type="text" id="city" name="city" required>
+
+                <label for="postal_code">Code postal</label>
+                <input type="text" id="postal_code" name="postal_code">
+
+                <label for="rate">Tarif indicatif</label>
+                <input type="text" id="rate" name="rate" placeholder="Ex. 35€/h">
+
+                <label for="description">Présentez votre activité</label>
+                <textarea id="description" name="description" placeholder="Votre expérience, vos spécialités..."></textarea>
+
+                <label for="email">Email de contact</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="phone">Téléphone</label>
+                <input type="tel" id="phone" name="phone">
+
+                <button type="submit" class="btn btn--primary">Envoyer ma candidature</button>
+            </form>
+        </section>
+    {% endif %}
+</div>
+{% endblock %}
